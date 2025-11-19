@@ -31,6 +31,7 @@ struct Hexagon<Content: View>: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: layout.size - borderWidth, height: layout.size - borderWidth)
+                .fontWeight(.ultraLight)
         }
         .background {
             Image(systemName: "hexagon")
@@ -38,10 +39,16 @@ struct Hexagon<Content: View>: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: layout.size, height: layout.size)
                 .foregroundStyle(borderColor)
+                .fontWeight(.ultraLight)
                 
         }
         .frame(width: layout.size, height: layout.size)
+        .overlay(alignment: .topTrailing) {
+            if let moment {
+                HexagonAccessoryView(moment: moment, hexagonLayout: layout)
+            }
         }
+    }
 }
 
 #Preview {
