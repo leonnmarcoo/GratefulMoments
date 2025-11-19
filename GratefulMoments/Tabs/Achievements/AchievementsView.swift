@@ -25,14 +25,24 @@ struct AchievementsView: View {
     }
     
     private var contentStack: some View {
-        VStack {
+        VStack(alignment: .leading) {
+            if !unlockedBadges.isEmpty {
             header("Your Badges")
-            ForEach(sortedUnlockedBadges) { badge in
-                Text(badge.details.title)
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(sortedUnlockedBadges) { badge in
+                        UnlockedBadgeView(badge: badge)
+                    }
+                }
             }
-            header("Locked Badges")
-            ForEach(sortedLockedBadges) { badge in
-                Text(badge.details.title)
+            .scrollClipDisabled()
+            .scrollIndicators(.hidden)
+            }
+            if !lockedBadges.isEmpty {
+                header("Locked Badges")
+                ForEach(sortedLockedBadges) { badge in
+                    LockedBadgeView(badge: badge)
+                }
             }
         }
         .padding()
